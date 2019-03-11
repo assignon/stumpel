@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <h1>Hooi</h1>
-  </div>
+    <div>
+        <h1>Hooi</h1>
+    </div>
 </template>
 
 <script>
-export default {
-  name: 'Block',
 
-}
+    export default {
+        name: 'Block',
+
+    }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
