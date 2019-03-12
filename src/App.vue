@@ -1,18 +1,21 @@
 <template>
   <div id="app">
+    <Menu/>
     <Block/>
     
-    <router-view></router-view>
+    <router-view/>
   </div>
 </template>
 
 <script>
 import Block from './components/Block.vue'
+import Menu from './components/menu.vue'
 
 export default {
   name: 'app',
   components: {
-    Block
+    Block,
+    Menu
   }
 }
 </script>
