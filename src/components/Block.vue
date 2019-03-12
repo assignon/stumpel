@@ -12,7 +12,6 @@
 
                     <div v-else :key="index + '-true'" class="catalog catalog__book"
                          :style="{backgroundImage: 'url('+ bookData['book_image'] +')'}">
-                        <h1>{{bookData['title']}}</h1>
                     </div>
                 </transition>
             </swiper-slide>
