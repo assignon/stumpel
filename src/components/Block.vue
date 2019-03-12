@@ -1,11 +1,21 @@
 <template>
     <div class="catalog__container">
+
+        <transition enter-active-class="animated bounceInLeft"
+                    leave-active-class="animated bounceOutRight"
+                    mode="out-in">
+            <p v-if="catalogName === null">Catalogus</p>
+            <p v-else>{{catalogName}}</p>
+        </transition>
+
+
         <swiper ref="mySwiper" :options="swiperOption" class="swiper__container">
             <swiper-slide v-for="(bookData, index) in bookList" :key="index" class="catalog__item">
                 <transition enter-active-class="animated flipInY"
                             leave-active-class="animated flipOutY"
                             mode="out-in">
-                    <div v-if="!bookActive" :key="index + '-false'" @click="getBooks(bookData['books'])" class="catalog"
+                    <div v-if="!bookActive" :key="index + '-false'"
+                         @click="getBooks(bookData['books'], bookData['display_name'])" class="catalog"
                          :style="{background: 'linear-gradient(to right,'+ randomColors[Math.floor(Math.random() * 8) ].color +')'}">
                         <h1>{{bookData['display_name']}}</h1>
                     </div>
@@ -17,8 +27,9 @@
             </swiper-slide>
         </swiper>
 
-        <div v-if="bookActive" class="animated bounceInUp">
-            <p @click="getCatalog()">Naar overzicht</p>
+        <div class="animated bounceInUp">
+            <p v-if="bookActive" @click="getCatalog()">Naar overzicht</p>
+            <p v-else>Klik op een boek</p>
         </div>
     </div>
 </template>
@@ -32,6 +43,7 @@
         data() {
             return {
                 bookList: [],
+                catalogName: null,
                 randomColors: [
                     {color: '#7f7fd5, #86a8e7, #91eae4'},
                     {color: '#ffefba, #ffffff'},
@@ -59,19 +71,22 @@
 
         methods: {
             getCatalog() {
-                if(this.bookActive){
+                if (this.bookActive) {
                     this.bookActive = false
+                    this.catalogName = null
                 }
                 axios
                     .get('https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=WKiSG50rJDJWReUantYBSChCxbTVBlkv')
                     .then(response => (this.bookList = response['data']['results']['lists']))
             },
 
-            getBooks(catalog) {
+            getBooks(catalog, catalogName) {
                 if (this.bookActive) {
+                    this.catalogName = null
                     this.getCatalog()
                     this.bookActive = false
                 } else {
+                    this.catalogName = catalogName
                     this.bookActive = true
                     this.bookList = []
                     this.bookList = catalog
@@ -95,6 +110,7 @@
         flex-direction: column;
         justify-content: center;
         align-content: center;
+        overflow: hidden;
     }
 
     .swiper__container {
