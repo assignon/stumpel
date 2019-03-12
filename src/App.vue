@@ -1,7 +1,11 @@
 <template>
   <div id="app" class="animated slideInUp">
     <Menu/>
-    <router-view/>
+    <!--<transition enter-active-class="animated flipInX"-->
+                <!--leave-active-class="animated flipOutY"-->
+                <!--mode="out-in">-->
+      <router-view/>
+    <!--</transition>-->
   </div>
 </template>
 
