@@ -4,6 +4,7 @@ import Login from '@/components/login.vue'
 import Block from '@/components/Block.vue'
 
 Vue.use(Router)
+
 export default new Router({
     routes: [
         {
@@ -18,4 +19,5 @@ export default new Router({
         }
     ],
     mode: 'history'
+
 })

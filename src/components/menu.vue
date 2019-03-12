@@ -11,6 +11,14 @@ export default {
        return {
            
        }
+    },
+
+    created (){
+
+    },
+
+    conponents:{
+
     }
 
 }
