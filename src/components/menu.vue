@@ -1,15 +1,17 @@
 <template>
     <nav>
-       <li>Login</li>
+       <router-link to='/login'>Login</router-link>
     </nav>
 </template>
 
 <script>
+
 export default {
     data(){
 
     }
 
 }
+
 </script>
 
