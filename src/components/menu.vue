@@ -1,6 +1,6 @@
 <template>
     <nav>
-       <router-link to='/login'>Login</router-link>
+       <router-link to="/login">Login</router-link>
     </nav>
 </template>
 
@@ -8,7 +8,9 @@
 
 export default {
     data(){
-
+       return {
+           
+       }
     }
 
 }
