@@ -1,16 +1,26 @@
 <template>
     <div class="catalog__container">
-        <swiper ref="mySwiper" :options="swiperOption" style="padding: 10px; margin: 0; overflow: hidden; height: auto">
-                <swiper-slide v-for="(bookData, index) in bookList" :key="index"  class="catalog__item">
-                    <h1>{{bookData['display_name']}}</h1>
-                </swiper-slide >
-                <!--<div  class="grid-container">-->
-                <!--<div class="grid-item"  v-for="(book, indexBook) in bookData['books']" :key="indexBook">-->
-                <!--<img :src="book['book_image']">-->
-                <!--<p>{{book['title']}}</p>-->
-                <!--</div>-->
-                <!--</div>-->
+        <swiper ref="mySwiper" :options="swiperOption" class="swiper__container">
+            <swiper-slide v-for="(bookData, index) in bookList" :key="index" class="catalog__item">
+                <transition enter-active-class="animated flipInY"
+                            leave-active-class="animated flipOutY"
+                            mode="out-in">
+                    <div v-if="!bookActive" :key="index + '-false'" @click="getBooks(bookData['books'])" class="catalog"
+                         :style="{background: 'linear-gradient(to right,'+ randomColors[Math.floor(Math.random() * 8) ].color +')'}">
+                        <h1>{{bookData['display_name']}}</h1>
+                    </div>
+
+                    <div v-else :key="index + '-true'" class="catalog catalog__book"
+                         :style="{backgroundImage: 'url('+ bookData['book_image'] +')'}">
+                        <h1>{{bookData['title']}}</h1>
+                    </div>
+                </transition>
+            </swiper-slide>
         </swiper>
+
+        <div v-if="bookActive" class="animated bounceInUp">
+            <p @click="getCatalog()">Naar overzicht</p>
+        </div>
     </div>
 </template>
 
@@ -23,6 +33,17 @@
         data() {
             return {
                 bookList: [],
+                randomColors: [
+                    {color: '#7f7fd5, #86a8e7, #91eae4'},
+                    {color: '#ffefba, #ffffff'},
+                    {color: '#74ebd5, #acb6e5'},
+                    {color: '#d9a7c7, #fffcdc'},
+                    {color: '#be93c5, #7bc6cc'},
+                    {color: '#4ca1af, #c4e0e5'},
+                    {color: '#e53935, #e35d5b'},
+                    {color: '#fbd3e9, #bb377d'},
+                ],
+                bookActive: false,
                 swiperOption: {                    //De opties voor de swiper
                     spaceBetween: 35,
                     slidesPerView: 4,         //Hiermee wordt automatisch bepaald hoeveel slides er
@@ -38,15 +59,29 @@
         },
 
         methods: {
-            getBooks() {
+            getCatalog() {
+                if(this.bookActive){
+                    this.bookActive = false
+                }
                 axios
                     .get('https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=WKiSG50rJDJWReUantYBSChCxbTVBlkv')
                     .then(response => (this.bookList = response['data']['results']['lists']))
+            },
+
+            getBooks(catalog) {
+                if (this.bookActive) {
+                    this.getCatalog()
+                    this.bookActive = false
+                } else {
+                    this.bookActive = true
+                    this.bookList = []
+                    this.bookList = catalog
+                }
             }
         },
 
         mounted() {
-            this.getBooks()
+            this.getCatalog()
         }
     }
 </script>
@@ -63,16 +98,49 @@
         align-content: center;
     }
 
+    .swiper__container {
+        padding: 10px;
+        margin: 10px;
+        height: 60vh;
+    }
+
     .catalog__item {
-        background-color: rgba(255, 255, 255, 0.8);
-        border: 1px solid rgba(0, 0, 0, 0.8);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .catalog {
+        border-radius: 10px;
+        min-width: 400px;
         font-size: 20px;
         display: flex;
         justify-content: center;
         align-content: center;
         flex-direction: column;
         text-align: center;
-        min-height: 60vh;
+        height: 50vh;
+        -webkit-box-shadow: 8px 7px 30px -9px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 8px 7px 30px -9px rgba(0, 0, 0, 0.75);
+        box-shadow: 8px 7px 30px -9px rgba(0, 0, 0, 0.75);
+        transition: 0.3s ease-in-out;
+        bottom: 0px;
+    }
+
+    .catalog__book {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .catalog:hover {
+        bottom: 40px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .catalog__item h1 {
+        padding: 20px;
     }
 
 </style>
