@@ -1,6 +1,7 @@
 <template>
     <div>
         <div v-for="(bookData, index) in bookList" :key="index">
+            <img :src="bookData['list_image']">
             <p>{{bookData['display_name']}}</p>
             <div  class="grid-container">
                 <div class="grid-item"  v-for="(book, indexBook) in bookData['books']" :key="indexBook">
