@@ -9,10 +9,10 @@
         </transition>
 
 
-        <swiper ref="mySwiper" :options="swiperOption" class="swiper__container">
+        <swiper ref="mySwiper" :options="swiperOption" class="swiper__container animated fadeIn">
             <swiper-slide v-for="(bookData, index) in bookList" :key="index" class="catalog__item">
-                <transition enter-active-class="animated flipInY"
-                            leave-active-class="animated flipOutY"
+                <transition enter-active-class="animated zoomIn slower"
+                            leave-active-class="animated zoomOut slower"
                             mode="out-in">
                     <div v-if="!bookActive" :key="index + '-false'"
                          @click="getBooks(bookData['books'], bookData['display_name'])" class="catalog"
@@ -27,7 +27,7 @@
             </swiper-slide>
         </swiper>
 
-        <div class="animated bounceInUp">
+        <div>
             <p v-if="bookActive" @click="getCatalog()">Naar overzicht</p>
             <p v-else>Klik op een boek</p>
         </div>
@@ -104,13 +104,13 @@
 <style scoped>
 
     .catalog__container {
-        min-height: 100vh;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-content: center;
         overflow: hidden;
+        width: 100vw;
     }
 
     .swiper__container {
@@ -124,6 +124,8 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-width: 400px;
+
     }
 
     .catalog {

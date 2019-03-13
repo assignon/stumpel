@@ -1,34 +1,47 @@
 <template>
-  <div id="app" class="animated slideInUp">
-    <Menu/>
-    <!--<transition enter-active-class="animated flipInX"-->
-                <!--leave-active-class="animated flipOutY"-->
-                <!--mode="out-in">-->
-      <router-view/>
-    <!--</transition>-->
-  </div>
+    <div id="app">
+        <section class="hero is-white is-fullheight">
+            <Menu/>
+            <div class="hero-body">
+                <div class="container is-fluid">
+                    <router-view/>
+                </div>
+            </div>
+        </section>
+    </div>
 </template>
 
 <script>
-import Block from './components/Block.vue'
-import Menu from './components/menu.vue'
+    import Menu from './components/menu.vue'
 
-export default {
-  name: 'app',
-  components: {
-    Block,
-    Menu
-  }
-}
+    export default {
+        name: 'app',
+        components: {
+            Menu
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .teste {
+        padding: 10px;
+        margin: 10px;
+        min-width: 90vw;
+    }
 </style>
