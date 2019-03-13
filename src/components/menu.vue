@@ -20,6 +20,10 @@
                 <router-link class="navbar-item" to="/order">
                     Bestelling
                 </router-link>
+
+                <router-link class="navbar-item" to="/login">
+                    Login
+                </router-link>
             </div>
         </div>
     </nav>
