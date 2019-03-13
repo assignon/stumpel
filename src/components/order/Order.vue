@@ -70,18 +70,17 @@
 
                 <div class="order__input__wrapper">
                     <label class="label">Betaalmethoden</label>
-                    <b-dropdown hoverable aria-role="list">
-                        <button class="button is-dark" slot="trigger">
-                            <span>Maak hier uw keuze</span>
-                        </button>
 
-                        <b-dropdown-item aria-role="listitem">ING</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem">ABN AMRO</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem">RABO Bank</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem">REAAL</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem">SNS Bank</b-dropdown-item>
-                        <b-dropdown-item aria-role="listitem">Nationale Nederlanden</b-dropdown-item>
-                    </b-dropdown>
+                    <div class="select">
+                        <select>
+                            <option aria-role="listitem">ING</option>
+                            <option aria-role="listitem">ABN AMRO</option>
+                            <option aria-role="listitem">RABO Bank</option>
+                            <option aria-role="listitem">REAAL</option>
+                            <option aria-role="listitem">SNS Bank</option>
+                            <option aria-role="listitem">Nationale Nederlanden</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
