@@ -1,19 +1,24 @@
 <template>
-    <div id="app">
-            <Menu/>
-            <router-view/>
-    </div>
+  <v-app class="grey lighten-3">
+    <v-content>
+       <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
 
 <script>
-    import Menu from './components/menu.vue'
 
-    export default {
-        name: 'app',
-        components: {
-            Menu
-        }
+export default {
+  name: 'App',
+  components: {
+    
+  },
+  data () {
+    return {
+      //
     }
+  }
+}
 </script>
 
 <style>
@@ -26,11 +31,5 @@
         padding: 0;
     }
 
-    .hero-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
 </style>
+

@@ -1,5 +1,6 @@
 <template>
     <h1>welkom op de login pagina</h1>
+    
 </template>
 
 <script>
