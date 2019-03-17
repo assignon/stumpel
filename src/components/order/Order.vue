@@ -1,220 +1,146 @@
 <template>
-    <form class="order__container">
-        <div class="order__left">
-            <div class="order__left--header">
-                <h1>Klantgegevens</h1>
-            </div>
+    <div class="order__container">
+        <div class="order__info">
+            <div class="order__filler--one"></div>
 
-            <div class="order__left--row">
-                <div class="order__input__wrapper">
-                    <label class="label">Naam</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw naam">
-                    </div>
+            <div class="order__wrapper">
+                <div class="info__tabs">
+                    <span @click="changeView('UserInfo')" :class="[view['name'] === 'UserInfo' ? 'info__tabs__text--active' : 'tet']" class="info__tabs__text">Klantgegevens</span>
+                    <span @click="changeView('Shipment')" :class="[view['name'] === 'Shipment' ? 'info__tabs__text--active' : 'tet']" class="info__tabs__text">Verzendopties</span>
+                    <span @click="changeView('Payment')" :class="[view['name'] === 'Payment' ? 'info__tabs__text--active' : 'tet']" class="info__tabs__text">Betaling</span>
                 </div>
 
-                <div class="order__input__wrapper">
-                    <label class="label">Achternaam</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw achternaam">
-                    </div>
-                </div>
-            </div>
-
-            <div class="order__left--row order__left--two">
-                <div class="order__input__wrapper order__input__wrapper--large">
-                    <label class="label">Adres</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw adres">
-                    </div>
-                </div>
-
-                <div class="order__input__wrapper order__input__wrapper--small">
-                    <label class="label">Postcode</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw postcode">
-                    </div>
-                </div>
-
-                <div class="order__input__wrapper order__input__wrapper--small">
-                    <label class="label">Toevoeging*</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Toevoeging">
-                    </div>
-                </div>
-            </div>
-
-            <div class="order__left--row order__left--three">
-                <div class="order__input__wrapper">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw email">
-                    </div>
-                </div>
-
-                <div class="order__input__wrapper">
-                    <label class="label">Telefoon</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw Telefoon">
-                    </div>
-                </div>
-            </div>
-
-            <div class="order__left--row order__left--three">
-                <div class="order__input__wrapper">
-                    <label class="label">Cadeaukaart</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Voer hier uw cadeaukaart">
-                    </div>
-                </div>
-
-                <div class="order__input__wrapper">
-                    <label class="label">Betaalmethoden</label>
-
-                    <div class="select">
-                        <select>
-                            <option aria-role="listitem">ING</option>
-                            <option aria-role="listitem">ABN AMRO</option>
-                            <option aria-role="listitem">RABO Bank</option>
-                            <option aria-role="listitem">REAAL</option>
-                            <option aria-role="listitem">SNS Bank</option>
-                            <option aria-role="listitem">Nationale Nederlanden</option>
-                        </select>
-                    </div>
-                </div>
+                <transition enter-active-class="animated fadeIn"
+                            leave-active-class="animated fadeOut"
+                            enter mode="out-in">
+                    <component  :is="view"></component>
+                </transition>
             </div>
         </div>
 
-        <div class="order__right">
-            <div class="order__left--row">
-                <div class="order__input__wrapper order__input--full">
-                    <b-table :data="data" :columns="columns"></b-table>
-                </div>
+
+        <div class="order__items">
+            <div class="order__item--header">
+                <h1>Winkelmandje</h1>
+                <hr class="order__item--seperator">
             </div>
 
-            <div class="order__right--header">
-                <h1>Totaal: € 62,95</h1>
+            <div class="order__item--details">
 
-            </div>
-
-            <div class="order__left--row" style="justify-content: flex-end">
-                <button class="button is-dark">
-                    <span>Afrekenen</span>
-                </button>
             </div>
         </div>
-    </form>
+    </div>
 </template>
 
 <script>
+    const UserInfo = () => import('./UserInfo')
+    const Shipment = () => import('./Shipment')
+    const Payment = () => import('./Payment')
+
     export default {
-        name: "Order",
+        name: "OrderTwo",
+        components: {
+            'UserInfo' : UserInfo, 'Shipment' : Shipment, 'Payment' : Payment
+        },
+
         data() {
             return {
-                data: [
-                    { 'ISBN': 9789022587157, 'book': 'Eragon', 'price': '€ 22,50', 'amount': '1x' },
-                    { 'ISBN': 9789024573349, 'book': 'Het spel der tronen', 'price': '€ 12,50', 'amount': '1x'},
-                    { 'ISBN': 9783423423339, 'book': 'Het bloed van de elfen', 'price': '€ 2,50', 'amount': '1x'},
-                    { 'ISBN': 9032493204843, 'book': 'De naam van de wind', 'price': '€ 8,90', 'amount': '2x'},
-                    { 'ISBN': 1084714147878, 'book': 'De angst van de wijze', 'price': '€ 16,55', 'amount': '1x'}
-                ],
-                columns: [
+                view: UserInfo
+            }
+        },
 
-                    {
-                        field: 'book',
-                        label: 'Boek',
-                    },
-                    {
-                        field: 'price',
-                        label: 'Prijs',
-                    },
-                    {
-                        field: 'amount',
-                        label: 'Aantal',
-                        centered: true
-                    },
-                    {
-                        field: 'ISBN',
-                        label: 'ISBN',
-                        width: '40',
-                        numeric: true,
-                        centered: true
-                    },
-                ]
+        methods: {
+            changeView(nextView){
+                if(nextView){
+                    if(nextView === 'UserInfo'){
+                        this.view = UserInfo
+                    }
+                    else if(nextView === 'Shipment') {
+                        this.view = Shipment
+                    }
+                    else if(nextView === 'Payment'){
+                        this.view = Payment
+                    }
+                } else {
+                    this.view === UserInfo ? this.view = Shipment : this.view = Shipment ? this.view = Payment : this.view = UserInfo
+                }
             }
         }
     }
 </script>
 
-<style scoped>
+<style  scoped>
+
     .order__container {
-        min-height: 50vh;
+        width: 100%;
+        min-height: 80vh;
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
     }
 
-    .order__left {
-        border: 1px solid #545556;
-        flex:1;
+    .order__info {
+        flex: 3;
+        padding-right: 50px;
+        min-height: 90vh;
+        height: 100%;
         display: flex;
-        flex-direction: column;
-        text-align: left;
-        padding: 40px;
+        flex-direction: row;
+        justify-content: flex-start;
     }
 
-    .order__right {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        text-align: left;
-        padding: 40px;
+    .order__items {
+        background: #F8FAFB;
+        flex: 1;
+        min-height: 94vh;
+    }
+
+    .order__filler--one {
         flex: 1;
     }
 
-    .order__left--header {
-        margin: 10px;
-        color: #545556;
-        font-size: 43px;
+    .order__wrapper {
+        overflow: hidden;
+        flex: 2;
     }
 
-    .order__right--header {
-        text-align: right;
-        margin: 10px;
-        color: #545556;
-        font-size: 43px;
-    }
-
-    .order__left--row {
+    .info__tabs {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
     }
 
-    .order__left--two {
-        margin-top: 20px;
+    .info__tabs__text {
+        flex: 1;
+        background: none;
+        border: none;
+        font-size: 20px;
+        padding: 25px;;
+        color: #D4D9DD;
+        border-bottom: 1px solid #D4D9DD;
+        transition: 0.3s ease-in-out;
     }
 
-    .order__left--three {
-        margin-top: 20px;
+    .info__tabs__text--active {
+        cursor: pointer;
+        color: #1F2529;
+        border-bottom: 1px solid #1F2529;
+        transition: 0.3s ease-in-out;
     }
 
-    .order__input__wrapper {
-        margin: 10px;
-        width: 45%;
-    }
-
-    .order__input__wrapper--large {
-        width: 50%;
-    }
-
-    .order__input__wrapper--small {
-        width: 18.5%;
-    }
-
-    .order__input--full {
+    .order__item--header {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         width: 100%;
+        font-size: 35px;
     }
 
-    .label {
-        color: #545556;
+    .order__item--seperator {
+        border:1px solid #D4D9DD;
     }
+
 </style>

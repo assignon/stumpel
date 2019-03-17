@@ -13,10 +13,6 @@
 
         <div id="navbarExampleTransparentExample" class="navbar-menu">
             <div class="navbar-start">
-                <router-link class="navbar-item" to="/">
-                    Home
-                </router-link>
-
                 <router-link class="navbar-item" to="/order">
                     Bestelling
                 </router-link>

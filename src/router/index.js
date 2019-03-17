@@ -22,7 +22,8 @@ export default new Router({
             path: '/order',
             name: 'order',
             component: Order
-        }
+        },
+
     ],
     mode: 'history'
 

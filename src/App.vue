@@ -1,13 +1,7 @@
 <template>
     <div id="app">
-        <section class="hero is-white is-fullheight">
             <Menu/>
-            <div class="hero-body">
-                <div class="container is-fluid">
-                    <router-view/>
-                </div>
-            </div>
-        </section>
+            <router-view/>
     </div>
 </template>
 
@@ -39,9 +33,4 @@
         align-items: center;
     }
 
-    .teste {
-        padding: 10px;
-        margin: 10px;
-        min-width: 90vw;
-    }
 </style>
