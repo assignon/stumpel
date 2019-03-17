@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import Login from '@/components/login.vue'
 import Block from '@/components/Block.vue'
 import Order from '../components/order/Order'
+// import Filter from '../components/filter'
+import Prototype from '@/components/liam/prototype'
 
 Vue.use(Router)
 
@@ -22,6 +24,16 @@ export default new Router({
             path: '/order',
             name: 'order',
             component: Order
+        },
+        // {
+        //     path: '/filter',
+        //     name: 'filter',
+        //     component: Filter
+        // },
+        {
+            path: '/L-prototype',
+            name: 'L-prototype',
+            component: Prototype
         }
     ],
     mode: 'history'
