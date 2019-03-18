@@ -5,6 +5,7 @@ import Block from '@/components/Block.vue'
 import Order from '../components/order/Order'
 // import Filter from '../components/filter'
 import Prototype from '@/components/liam/prototype'
+import PrototypeD from '@/components/damian/Prototype'
 
 Vue.use(Router)
 
@@ -29,6 +30,16 @@ export default new Router({
             path: '/L-prototype',
             name: 'L-prototype',
             component: Prototype
+        },
+        {
+            path: '/D-prototype',
+            name: 'D-prototype',
+            component: PrototypeD
+        },
+        {
+            path: '/D-prototype/:term',
+            name: 'D-prototype-search',
+            component: PrototypeD
         }
     ],
     mode: 'history'
