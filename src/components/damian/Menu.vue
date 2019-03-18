@@ -2,10 +2,10 @@
     <v-layout class="menu__container" justify-space-between row wrap>
         <v-toolbar-side-icon class="menu__icon"></v-toolbar-side-icon>
 
-        <div class="menu__search">
+        <form @submit.prevent="$parent.searchBook(searchTerm)" autocomplete="off" class="menu__search">
             <input placeholder="Doorzoek het hele assortiment..." type="text" class="menu__search--input" v-model="searchTerm">
-            <v-icon class="menu__search--icon">search</v-icon>
-        </div>
+            <v-icon @click="$parent.searchBook(searchTerm)" class="menu__search--icon">search</v-icon>
+        </form>
 
         <v-btn icon class="menu__icon">
             <v-icon>shopping_basket</v-icon>
@@ -21,7 +21,7 @@
             return {
                 searchTerm: '',
             }
-        }
+        },
     }
 </script>
 
