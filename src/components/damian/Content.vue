@@ -10,6 +10,7 @@
                         <input class="header__input" type="text" placeholder="Vul je zoekopdracht in..." v-model="searchTerm">
                         <v-icon class="header__search--icon">search</v-icon>
                     </div>
+                    
                 </div>
             </v-container>
         </div>
