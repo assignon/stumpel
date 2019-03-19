@@ -25,8 +25,13 @@
 
         methods: {
             searchBook(searchTerm) {
-                this.$router.push({name: 'D-prototype-search', params: {term: searchTerm}});
-                this.showContent = false
+                if(searchTerm === ''){
+                    this.showContent = true
+                    this.$router.push({name: 'D-prototype'});
+                } else {
+                    this.$router.push({name: 'D-prototype-search', params: {term: searchTerm}});
+                    this.showContent = false
+                }
             },
 
             convertTitle(title) {

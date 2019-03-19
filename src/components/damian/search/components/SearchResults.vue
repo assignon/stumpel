@@ -6,7 +6,7 @@
                 <h1 class="results__header__title">Zoekresultaten op: {{$route.params.term}}</h1>
 
                 <div class="results__header__details">
-                    <p class="details__text">{{results[0]['books'].length}} resultaten</p>
+                    <p class="details__text" v-if="amount">{{amount}} resultaten</p>
 
                     <div class="details__sort__wrapper">
                         <p style="padding: 10px;">Sorteren op:</p>
@@ -29,7 +29,9 @@
                         mode="out-in">
                 <div v-if="results.length" class="books__container">
                     <div v-for="(book, index) in results[0]['books']"
-                         class="book__wrapper" :key="index">
+                         class="book__wrapper animated fadeInUp" :key="index"
+                         :style="{animationDelay: '0.' + (index+4) + 's'}"
+                    >
                         <div class="book__covered" :style="{backgroundImage: `url(${book['book_image']})`}">
                         </div>
                         <p class="book__title">{{convertTitle(book['title'])}}</p>
@@ -56,6 +58,7 @@
         data(){
             return {
                 filterChoice: '',
+                amount: null,
                 items: ['Alfabetisch (A - Z)', 'Alfabetisch (Z -A)', 'Meest verkocht', 'Prijs (hoog -> laag)', 'Prijs (laag -> hoog)', 'Publicatie datum'],
             }
         },
@@ -69,13 +72,29 @@
 
             filterResults(){
                 alert(typeof this.results)
+            },
+
+            checkAmount(){
+                if(this.results.length > 0){
+                    this.amount = this.results[0]['books'].length
+                }
             }
+        },
+
+        mounted() {
+            this.checkAmount()
         },
 
         watch: {
             filterChoice: function (val) {
                 if(val){
                     this.filterResults()
+                }
+            },
+
+            results: function (val) {
+                if(val){
+                    this.checkAmount()
                 }
             }
         }
