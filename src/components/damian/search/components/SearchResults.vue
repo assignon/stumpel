@@ -25,20 +25,19 @@
             <hr style="border: 1px solid #C7C7C7; width: 100%;">
 
             <div class="books__container">
-                <div class="book__wrapper">
-                    <div class="book__cover">
-
+                <div v-for="(book, index) in results[0]['books']" :key="index"
+                     class="book__wrapper">
+                    <div class="book__covered" :style="{backgroundImage: `url(${book['book_image']})`}">
                     </div>
-                    <p class="book__title">Tetetet</p>
-                    <p class="book__author">Shaif Bhaggoe</p>
-                    <p class="book__price">€17,90</p>
+                    <p class="book__title">{{convertTitle(book['title'])}}</p>
+                    <p class="book__author">{{book['author']}}</p>
+                    <p class="book__price">€{{book['price']}}</p>
 
                     <span class="book__button">
                         <v-btn color="warning book__cart">In winkelwagen +</v-btn>
                     </span>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -46,10 +45,21 @@
 <script>
     export default {
         name: "SearchResults",
+        props: {
+          results: Array
+        },
 
         data(){
             return {
                 items: ['Meest verkocht', 'Prijs (hoog -> laag)', 'Prijs (laag -> hoog)', 'Publicatie datum'],
+            }
+        },
+
+        methods: {
+            convertTitle(title) {
+                let lowerCase = title.toLowerCase()
+                let newTitle = lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1)
+                return newTitle
             }
         }
     }
@@ -62,6 +72,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
+        margin-bottom: 80px;
     }
 
     .results__wrapper {
@@ -112,17 +123,21 @@
     }
 
     .book__wrapper {
+        margin-bottom: 30px;
         width: 213px;
         text-align: left;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
     }
 
-    .book__cover {
-        background: red;
+    .book__covered {
         width: 213px;
         height: 312px;
         border-radius: 6px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
     }
 
     .book__title {

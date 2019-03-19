@@ -67,7 +67,7 @@
                 <v-radio-group v-model="filterType">
                     <v-list-tile>
                         <v-list-tile-content>
-                            <v-radio-group v-model="filterType">
+                            <v-radio-group>
                                 <v-radio class="test" value="2018" label="2018"></v-radio>
                             </v-radio-group>
                         </v-list-tile-content>

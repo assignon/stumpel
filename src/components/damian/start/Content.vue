@@ -6,10 +6,10 @@
                     <p class="animated slideInUp">Welkom bij Stumpel :)</p>
                     <p class="animated slideInUp">Ben je ergens naar op zoek?</p>
 
-                    <div class="header__input--wrapper animated slideInUp">
+                    <form @submit.prevent="$parent.searchBook(searchTerm)" autocomplete="off" class="header__input--wrapper animated slideInUp">
                         <input class="header__input" type="text" placeholder="Vul je zoekopdracht in..." v-model="searchTerm">
                         <v-icon class="header__search--icon">search</v-icon>
-                    </div>
+                    </form>
                 </div>
             </v-container>
         </div>
@@ -97,7 +97,6 @@
             convertTitle(title) {
                 let lowerCase = title.toLowerCase()
                 let newTitle = lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1)
-
                 return newTitle
             }
         },
@@ -106,7 +105,7 @@
             let vm = this
             setTimeout(function () {
                 vm.getTop()
-            }, 900)
+            }, 500)
         }
     }
 </script>
