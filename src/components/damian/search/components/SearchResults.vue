@@ -6,7 +6,7 @@
                 <h1 class="results__header__title">Zoekresultaten op: {{$route.params.term}}</h1>
 
                 <div class="results__header__details">
-                    <p class="details__text">resultaten</p>
+                    <p class="details__text">{{results[0]['books'].length}} resultaten</p>
 
                     <div class="details__sort__wrapper">
                         <p style="padding: 10px;">Sorteren op:</p>
@@ -25,8 +25,8 @@
             <hr style="border: 1px solid #C7C7C7; width: 100%;">
 
             <transition enter-active-class="animated slideInUp"
-                              leave-active-class="animated slideOutDown"
-                              mode="out-in" >
+                        leave-active-class="animated slideOutDown"
+                        mode="out-in">
                 <div v-if="results.length" class="books__container">
                     <div v-for="(book, index) in results[0]['books']"
                          class="book__wrapper" :key="index">
@@ -35,7 +35,6 @@
                         <p class="book__title">{{convertTitle(book['title'])}}</p>
                         <p class="book__author">{{book['author']}}</p>
                         <p class="book__price">€{{book['price']}}</p>
-
                         <span class="book__button">
                         <v-btn color="warning book__cart">In winkelwagen +</v-btn>
                     </span>
@@ -51,10 +50,10 @@
     export default {
         name: "SearchResults",
         props: {
-            results: Array
+          results: Array
         },
 
-        data() {
+        data(){
             return {
                 filterChoice: '',
                 items: ['Alfabetisch (A - Z)', 'Alfabetisch (Z -A)', 'Meest verkocht', 'Prijs (hoog -> laag)', 'Prijs (laag -> hoog)', 'Publicatie datum'],
@@ -68,14 +67,14 @@
                 return newTitle
             },
 
-            filterResults() {
+            filterResults(){
                 alert(typeof this.results)
             }
         },
 
         watch: {
             filterChoice: function (val) {
-                if (val) {
+                if(val){
                     this.filterResults()
                 }
             }
@@ -174,7 +173,7 @@
     }
 
     .book__price {
-        color: #1C51AE;
+        color:#1C51AE;
         font-size: 28px;
         font-weight: 700;
     }
