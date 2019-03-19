@@ -21,7 +21,7 @@
                     </div>
 
                     <div v-else :key="index + '-true'" class="catalog catalog__book"
-                         :style="{backgroundImage: 'url('+ bookData['book_image'] +')'}">
+                         :style="{backgroundImage: `url( ${bookData['book_image']} )`}">
                     </div>
                 </transition>
             </swiper-slide>
