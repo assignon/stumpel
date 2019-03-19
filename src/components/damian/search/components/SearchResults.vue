@@ -13,9 +13,9 @@
 
                         <v-flex class="details__sort" height="50" d-flex>
                             <v-select height="50"
-                                    :items="items"
-                                    label="Maak een keuze"
-                                    solo
+                                      :items="items"
+                                      label="Maak een keuze"
+                                      solo v-model="filterChoice"
                             ></v-select>
                         </v-flex>
                     </div>
@@ -24,20 +24,25 @@
 
             <hr style="border: 1px solid #C7C7C7; width: 100%;">
 
-            <div class="books__container">
-                <div v-for="(book, index) in results[0]['books']" :key="index"
-                     class="book__wrapper">
-                    <div class="book__covered" :style="{backgroundImage: `url(${book['book_image']})`}">
-                    </div>
-                    <p class="book__title">{{convertTitle(book['title'])}}</p>
-                    <p class="book__author">{{book['author']}}</p>
-                    <p class="book__price">€{{book['price']}}</p>
+            <transition enter-active-class="animated slideInUp"
+                              leave-active-class="animated slideOutDown"
+                              mode="out-in" >
+                <div v-if="results.length" class="books__container">
+                    <div v-for="(book, index) in results[0]['books']"
+                         class="book__wrapper" :key="index">
+                        <div class="book__covered" :style="{backgroundImage: `url(${book['book_image']})`}">
+                        </div>
+                        <p class="book__title">{{convertTitle(book['title'])}}</p>
+                        <p class="book__author">{{book['author']}}</p>
+                        <p class="book__price">€{{book['price']}}</p>
 
-                    <span class="book__button">
+                        <span class="book__button">
                         <v-btn color="warning book__cart">In winkelwagen +</v-btn>
                     </span>
+                    </div>
                 </div>
-            </div>
+            </transition>
+
         </div>
     </div>
 </template>
@@ -46,12 +51,13 @@
     export default {
         name: "SearchResults",
         props: {
-          results: Array
+            results: Array
         },
 
-        data(){
+        data() {
             return {
-                items: ['Meest verkocht', 'Prijs (hoog -> laag)', 'Prijs (laag -> hoog)', 'Publicatie datum'],
+                filterChoice: '',
+                items: ['Alfabetisch (A - Z)', 'Alfabetisch (Z -A)', 'Meest verkocht', 'Prijs (hoog -> laag)', 'Prijs (laag -> hoog)', 'Publicatie datum'],
             }
         },
 
@@ -60,6 +66,18 @@
                 let lowerCase = title.toLowerCase()
                 let newTitle = lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1)
                 return newTitle
+            },
+
+            filterResults() {
+                alert(typeof this.results)
+            }
+        },
+
+        watch: {
+            filterChoice: function (val) {
+                if (val) {
+                    this.filterResults()
+                }
             }
         }
     }
@@ -156,7 +174,7 @@
     }
 
     .book__price {
-        color:#1C51AE;
+        color: #1C51AE;
         font-size: 28px;
         font-weight: 700;
     }

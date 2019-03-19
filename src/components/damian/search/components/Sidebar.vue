@@ -15,45 +15,16 @@
 
             <div class="first__filters">
                 <v-radio-group v-model="filterType">
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio-group v-model="filterType">
-                                <v-radio class="test" value="Ebook" label="Ebook"></v-radio>
-                            </v-radio-group>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="Luisterboek" label="Luisterboek"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="Paperback" label="Paperback"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="Hardback" label="Hardback"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="Losbandig" label="Losbandig"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                    <div v-for="filter in filterItem">
+                        <v-list-tile>
+                            <v-list-tile-content>
+                                <v-radio-group v-model="filterType">
+                                    <v-radio class="test" :value="filter" :label="filter"></v-radio>
+                                </v-radio-group>
+                            </v-list-tile-content>
+                        </v-list-tile>
+                        <v-divider></v-divider>
+                    </div>
                 </v-radio-group>
             </div>
 
@@ -65,45 +36,15 @@
 
             <div class="first__filters">
                 <v-radio-group v-model="filterType">
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio-group>
-                                <v-radio class="test" value="2018" label="2018"></v-radio>
-                            </v-radio-group>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                    <div v-for="year in yearFilter">
+                        <v-list-tile>
+                            <v-list-tile-content>
+                                <v-radio :value="year" :label="year"></v-radio>
+                            </v-list-tile-content>
+                        </v-list-tile>
 
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="2017" label="2017"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="2016" label="2016"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="2020" label="2020"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
-
-                    <v-divider></v-divider>
-
-                    <v-list-tile>
-                        <v-list-tile-content>
-                            <v-radio value="2019" label="2019"></v-radio>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        <v-divider></v-divider>
+                    </div>
                 </v-radio-group>
             </div>
 
@@ -128,6 +69,14 @@
         data(){
             return {
                 filterType: '',
+                filterItem: [
+                    'Ebook', 'Luisterboek', 'Paperback',
+                    'Hardback', 'Losbandig'
+                ],
+                yearFilter: [
+                    "2018", "2017", "2016",
+                    "2020", "2019"
+                ]
             }
         }
     }

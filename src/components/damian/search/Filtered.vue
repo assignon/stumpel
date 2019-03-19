@@ -25,24 +25,33 @@
 
         methods: {
             getBook() {
+                this.bookType = []
+                this.bookResult = []
+                this.term = this.$route.params.term
+
                 axios
                     .get('https://api.nytimes.com/svc/books/v3/lists/overview.json?api-key=WKiSG50rJDJWReUantYBSChCxbTVBlkv')
                     .then(response => {
                         this.bookType = response['data']['results']['lists'];
                         this.bookType.forEach(category => {
-                            if(this.term === category['display_name']){
-                                console.log('tetetet')
+                            if (this.term === category['display_name']) {
                                 this.bookResult.push(category)
                             }
                         })
-
-                        console.log(this.bookResult)
                     })
             },
         },
 
         mounted() {
             this.getBook()
+        },
+
+        watch: {
+            '$route.params.term': function (val) {
+                if(val){
+                    this.getBook()
+                }
+            }
         }
     }
 </script>
